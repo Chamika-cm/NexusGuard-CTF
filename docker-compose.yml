@@ -1,0 +1,93 @@
+networks:
+  nexus_subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  # Management Layer: Scoreboard Engine (CTFd)
+  ctfd_scoreboard:
+    image: ctfd/ctfd:3.5.0
+    container_name: nexus_ctfd
+    ports:
+      - "8000:8000"
+    environment:
+      - UPLOAD_FOLDER=/var/uploads
+      - DATABASE_URL=mysql+pymysql://ctfd:ctfd@ctfd_db:3306/ctfd
+    depends_on:
+      - ctfd_db
+    networks:
+      - nexus_subnet
+
+  # Management Layer: Database
+  ctfd_db:
+    image: mariadb:10.11
+    container_name: nexus_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=nexus_root_secret
+      - MYSQL_DATABASE=ctfd
+      - MYSQL_USER=ctfd
+      - MYSQL_PASSWORD=ctfd
+    networks:
+      - nexus_subnet
+
+  # Challenge Stage 1: Web Security (Member 2)
+  stage1_web:
+    image: php:8.1-apache
+    container_name: nexus_stage1
+    networks:
+      nexus_subnet:
+        ipv4_address: 172.28.0.11
+    ports:
+      - "8081:80"
+
+  # Challenge Stage 2: Networking (Member 2)
+  stage2_network:
+    image: alpine:3.18
+    container_name: nexus_stage2
+    networks:
+      nexus_subnet:
+        ipv4_address: 172.28.0.12
+    ports:
+      - "8082:80"
+
+  # Challenge Stage 3: Digital Forensics (Member 2)
+  stage3_forensics:
+    image: nginx:1.24-alpine
+    container_name: nexus_stage3
+    networks:
+      nexus_subnet:
+        ipv4_address: 172.28.0.13
+    ports:
+      - "8083:80"
+
+  # Challenge Stage 4: Web RCE (Member 3)
+  stage4_webrce:
+    image: python:3.10-slim
+    container_name: nexus_stage4
+    networks:
+      nexus_subnet:
+        ipv4_address: 172.28.0.14
+    ports:
+      - "8084:80"
+
+  # Challenge Stage 5: Linux SSH (Member 3)
+  stage5_linux:
+    image: ubuntu:22.04
+    container_name: nexus_stage5
+    networks:
+      nexus_subnet:
+        ipv4_address: 172.28.0.15
+    ports:
+      - "2222:22"
+
+  # Challenge Stage 6: Root Escalation (Member 3)
+  stage6_root:
+    image: ubuntu:22.04
+    container_name: nexus_stage6
+    networks:
+      nexus_subnet:
+        ipv4_address: 172.28.0.16
+    ports:
+      - "2223:22"
