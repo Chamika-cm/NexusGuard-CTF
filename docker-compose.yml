@@ -17,6 +17,8 @@ services:
       - DATABASE_URL=mysql+pymysql://ctfd:ctfd@ctfd_db:3306/ctfd
     depends_on:
       - ctfd_db
+    volumes:
+      - ctfd_data:/var/uploads
     networks:
       - nexus_subnet
 
@@ -29,6 +31,8 @@ services:
       - MYSQL_DATABASE=ctfd
       - MYSQL_USER=ctfd
       - MYSQL_PASSWORD=ctfd
+    volumes:
+      - db_data:/var/lib/mysql
     networks:
       - nexus_subnet
 
@@ -91,3 +95,7 @@ services:
         ipv4_address: 172.28.0.16
     ports:
       - "2223:22"
+
+volumes:
+  ctfd_data:
+  db_data:
