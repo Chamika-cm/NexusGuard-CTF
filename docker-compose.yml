@@ -1,3 +1,5 @@
+version: '3.8'
+
 networks:
   nexus_subnet:
     driver: bridge
@@ -34,28 +36,34 @@ services:
 
   # Challenge Stage 1: Web Security (Member 2)
   stage1_web:
-    image: php:8.1-apache
+    build: ./stage1
     container_name: nexus_stage1
+    volumes:
+      - ./stage1:/var/www/html
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.11
     ports:
       - "8081:80"
 
-  # Challenge Stage 2: Networking (Member 2)
+  # Challenge Stage 2: Networking / Nginx Service (Member 2)
   stage2_network:
-    image: alpine:3.18
+    build: ./stage2
     container_name: nexus_stage2
+    volumes:
+      - ./stage2:/usr/share/nginx/html
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.12
     ports:
       - "8082:80"
 
-  # Challenge Stage 3: Digital Forensics (Member 2)
+  # Challenge Stage 3: Digital Forensics / PCAP Hosting (Member 2)
   stage3_forensics:
-    image: nginx:1.24-alpine
+    build: ./stage3
     container_name: nexus_stage3
+    volumes:
+      - ./stage3:/usr/share/nginx/html
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.13

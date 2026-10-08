@@ -1,0 +1,5 @@
+GET /flag HTTP/1.1
+Host: localhost
+User-Agent: Wireshark/4.0
+
+Flag: NEXUS{p4ck3t_4n4lys1s_f0r3ns1cs_2026}

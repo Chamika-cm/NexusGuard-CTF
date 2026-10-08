@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /secret_flag_stage2.txt
+
+# Hidden Flag for Stage 2
+# NEXUS{n3tw0rk_r3c0n_m4st3r_2026}
