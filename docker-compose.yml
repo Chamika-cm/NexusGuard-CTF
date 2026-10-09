@@ -73,35 +73,32 @@ services:
     ports:
       - "8083:80"
 
-  # Challenge Stage 4: Web RCE (Member 3)
-  stage4_webrce:
-    image: python:3.10-slim
+  # Challenge Stage 4: Web Security (Authenticated Admin RCE)
+  nexusguard-stage4:
+    build: ./stage4
     container_name: nexus_stage4
+    ports:
+      - "8084:80"
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.14
-    ports:
-      - "8084:80"
 
-  # Challenge Stage 5: Linux SSH (Member 3)
-  stage5_linux:
-    image: ubuntu:22.04
+  # Challenge Stage 5: Linux System Security (SUID Privilege Escalation)
+  nexusguard-stage5:
+    build: ./stage5
     container_name: nexus_stage5
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.15
-    ports:
-      - "2222:22"
 
-  # Challenge Stage 6: Root Escalation (Member 3)
-  stage6_root:
-    image: ubuntu:22.04
+  # Challenge Stage 6: Advanced Linux Security (Cron Execution Compromise)
+  nexusguard-stage6:
+    build: ./stage6
     container_name: nexus_stage6
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.16
-    ports:
-      - "2223:22"
+
 
 volumes:
   ctfd_data:
