@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
 
-RUN echo "NEXUS{cr0n_3x3cut10n_c0mpr0m1s3_2026}" > /root/flag6.txt && chmod 600 /root/flag6.txt
+RUN echo "NEXUS{c4pst0n3_r00t_c0mpr0m1s3_m4st3r}" > /root/flag6.txt && chmod 600 /root/flag6.txt
 
 # Setup cron script
 RUN mkdir -p /opt/scripts && \
