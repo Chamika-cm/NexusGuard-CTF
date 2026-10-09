@@ -2,7 +2,7 @@
 session_start();
 
 // Stage 4: Authenticated Admin RCE
-$flag = "NEXUS{4uth_4dm1n_rc3_3xp101t_2026}";
+$flag = "NEXUS{r3m0t3_c0mm4nd_3x3cut10n_succ3ss}";
 
 if (isset($_POST['login'])) {
     if ($_POST['username'] === 'admin' && $_POST['password'] === 'admin123') {

@@ -113,3 +113,52 @@ docker compose up -d --build
 - **Member 2:** Challenge Design A (Stages 1, 2, 3 — Web Path Traversal, Networking, Forensics).
 - **Member 3:** Challenge Design B (Stages 4, 5, 6 — Web RCE, Linux SUID, Capstone Cron Hijack).
 - **Member 4:** End-to-End Integration, QA Testing Matrix, Security Audits, and Reset Validation.
+
+
+---
+
+## 🛠️ Member 3 Contributions & Stage Specifications
+
+Member 3 is responsible for designing, containerizing, and verifying **Stage 4, Stage 5, and Stage 6** of the NexusGuard CTF platform.
+
+### 📍 Stage 4: Web Security (Authenticated Admin RCE)
+- **Container Name:** `nexus_stage4`
+- **Internal IP:** `172.28.0.14`
+- **Port:** `8084`
+- **Vulnerability Focus:** Web Portal Command Injection / Authenticated Remote Code Execution (RCE).
+- **Access / Verification:**
+  - Access via Browser: `http://localhost:8084`
+  - Authenticate using admin credentials and execute system commands through the console to retrieve the flag:
+    ```bash
+    cat /var/www/flag4.txt
+    ```
+
+### 📍 Stage 5: Linux System Security (SUID Privilege Escalation)
+- **Container Name:** `nexus_stage5`
+- **Internal IP:** `172.28.0.15`
+- **Vulnerability Focus:** Local Privilege Escalation via SUID binary misconfiguration (`find`).
+- **Access / Verification:**
+  - Enter the container shell:
+    ```bash
+    docker exec -it nexus_stage5 bash
+    ```
+  - Exploit SUID permissions on `/usr/bin/find` to read the root flag:
+    ```bash
+    find /root/flag5.txt -exec cat {} \;
+    ```
+
+### 📍 Stage 6: Advanced Linux Security (Capstone - Cron Execution Compromise)
+- **Container Name:** `nexus_stage6`
+- **Internal IP:** `172.28.0.16`
+- **Vulnerability Focus:** Automated Task Hijacking / Unprivileged Scheduled Job Exploitation.
+- **Access / Verification:**
+  - Enter the container shell:
+    ```bash
+    docker exec -it nexus_stage6 bash
+    ```
+  - Inspect the system cron job configuration:
+    ```bash
+    cat /etc/cron.d/vulnerable-cron
+    ```
+
+---
