@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /secret_flag_stage2.txt
+Disallow: /hidden_vault_2026.txt
 
-# Hidden Flag for Stage 2
-# NEXUS{n3tw0rk_r3c0n_m4st3r_2026}
+# System Notice: Internal network status log protected.
