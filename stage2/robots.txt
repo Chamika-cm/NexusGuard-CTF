@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /hidden_vault_2026.txt
+
+# System Notice: Internal network status log protected.
