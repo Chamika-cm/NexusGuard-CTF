@@ -162,3 +162,15 @@ Member 3 is responsible for designing, containerizing, and verifying **Stage 4, 
     ```
 
 ---
+## Deployment & Reset Instructions (Member 4 - Integration)
+
+**To start the environment:**
+1. Navigate to the project directory.
+2. Run: `docker compose up -d --build`
+3. Wait for the build to complete, then access CTFd at `http://localhost:8000`.
+
+**To import database (If required):**
+Run: `docker exec -i nexus_db mysql -u root -pnexus_root_secret ctfd < ctfd_backup.sql`
+
+**To completely reset the environment:**
+Run: `docker compose down -v`
