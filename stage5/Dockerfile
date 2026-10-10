@@ -1,11 +1,28 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y vim-common gcc && rm -rf /var/lib/apt/lists/*
+# OpenSSH Server 
+RUN apt-get update && apt-get install -y \
+    openssh-server \
+    vim-common \
+    gcc \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create flag file
+# SSH run 
+RUN mkdir /var/run/sshd
+
+# Analyst user 
+RUN useradd -m -s /bin/bash analyst && \
+    echo "analyst:analyst123" | chpasswd
+
+# Flag file
 RUN echo "NEXUS{su1d_pr1v1l3g3_3sc4l4t10n_root}" > /root/flag5.txt && chmod 600 /root/flag5.txt
 
-# Create binary with SUID bit set
+# SUID bit 
 RUN chmod u+s /usr/bin/find
 
-CMD ["tail", "-f", "/dev/null"]
+# SSH Port 
+EXPOSE 22
+
+# SSH Daemon 
+CMD ["/usr/sbin/sshd", "-D"]
