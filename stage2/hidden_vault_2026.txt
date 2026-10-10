@@ -1,1 +1,8 @@
-NEXUS{s3rv1c3_3num3r4t10n_d1sc0v3ry}
+==================================================
+NEXUSGUARD FINANCIAL SERVICES - INTERNAL NETWORK
+==================================================
+
+Stage 2 Flag: NEXUS{s3rv1c3_3num3r4t10n_d1sc0v3ry} 
+
+[SYSTEM LOG]: Suspicious network activity detected on forensic node.
+Please inspect HTTP traffic on Port 8083 (Stage 3).
