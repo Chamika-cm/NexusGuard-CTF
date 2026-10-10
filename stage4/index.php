@@ -5,7 +5,7 @@ session_start();
 $flag = "NEXUS{r3m0t3_c0mm4nd_3x3cut10n_succ3ss}";
 
 if (isset($_POST['login'])) {
-    if ($_POST['username'] === 'admin' && $_POST['password'] === 'admin123') {
+    if ($_POST['username'] === 'admin_nexus' && $_POST['password'] === 'NexusAdmin#2026!Secured') {
         $_SESSION['admin'] = true;
     } else {
         $error = "Invalid admin credentials!";
