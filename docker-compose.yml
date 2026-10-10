@@ -87,6 +87,8 @@ services:
   nexusguard-stage5:
     build: ./stage5
     container_name: nexus_stage5
+    ports:
+      - "2222:22"    # <--- මෙන්න මේ පේළිය එකතු කරන්න
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.15
@@ -95,6 +97,8 @@ services:
   nexusguard-stage6:
     build: ./stage6
     container_name: nexus_stage6
+    ports:
+      - "2223:22"    # <--- මෙන්න මේ පේළිය එකතු කරන්න
     networks:
       nexus_subnet:
         ipv4_address: 172.28.0.16
