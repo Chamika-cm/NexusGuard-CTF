@@ -41,11 +41,11 @@ Follow these steps to clone and run the CTF box locally on your machine.
 Open your terminal (Linux/WSL/Command Prompt) and clone this repository:
 
 ```bash
-git clone https://github.com/YOUR-GITHUB-USERNAME/NexusGuard-CTF-Platform.git
-cd NexusGuard-CTF-Platform
+git clone https://github.com/Chamika-cm/NexusGuard-CTF.git
+cd NexusGuard-CTF
 ```
 
-> **Note:** Replace `YOUR-GITHUB-USERNAME` with the actual GitHub username of the repository owner.
+
 
 ### 2. Build and Start the Docker Environment
 
@@ -63,7 +63,18 @@ Check if all containers are up and running smoothly without any errors:
 docker ps
 ```
 
-You should see `nexus_ctfd`, `nexus_db`, and all six stage containers (`nexus_stage1` to `nexus_stage6`) listed with their respective ports.
+### 4. Restore CTF Database & Custom UI
+Wait about 10–15 seconds for the database container to initialize properly, then restore the database and custom UI theme using one of the commands below:
+
+.Using Git Bash / Linux / macOS (Recommended):
+```bash
+docker exec -i nexus_db mysql -u root -pnexus_root_secret --binary-mode=1 ctfd < ctfd_backup.sql
+```
+
+.Using PowerShell (Windows Alternative):
+```bash
+Get-Content ctfd_backup.sql -Raw | docker exec -i nexus_db mysql -u root -pnexus_root_secret --binary-mode=1 ctfd
+```
 
 ---
 
@@ -174,3 +185,6 @@ Run: `docker exec -i nexus_db mysql -u root -pnexus_root_secret ctfd < ctfd_back
 
 **To completely reset the environment:**
 Run: `docker compose down -v`
+
+**Reset the entire environment (containers & volumes):**
+Run: `bash reset.sh`
